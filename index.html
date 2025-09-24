@@ -749,7 +749,7 @@
             animation: blob-movement 15s infinite;
         }
         @keyframes blob-movement {
-            0%, 100% { transform: translate(0, 0) scale(1); }
+            0% { transform: translate(0, 0) scale(1); }
             25% { transform: translate(20px, -50px) scale(1.1); }
             50% { transform: translate(-30px, 20px) scale(0.9); }
             75% { transform: translate(40px, 30px) scale(1.05); }
@@ -2952,6 +2952,28 @@
                 opacity: 0;
             }
         }
+
+        /* NEW PRODUCT BADGE */
+        .new-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: linear-gradient(45deg, #ff6b6b, #ee4c77); /* Dynamic color for new products */
+            color: white;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-bottom-left-radius: 0.5rem;
+            box-shadow: 0 2px 10px rgba(255, 107, 107, 0.4);
+            animation: bounce-in 0.8s ease-out;
+            transform-origin: top right;
+            z-index: 10;
+        }
+
+        @keyframes bounce-in {
+            0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+            60% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); }
+        }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-300 antialiased">
@@ -3731,7 +3753,7 @@
             function animateLoadingBar() {
                 let progress = 0;
                 const interval = setInterval(() => {
-                    progress += Math.random() * 5;
+                    progress += Math.random() * 3 + 2; // Increments between 2 and 5 for a smoother yet varied feel
                     if (progress > 100) progress = 100;
                     
                     loadingBar.style.width = `${progress}%`;
@@ -3758,7 +3780,7 @@
                             }, 1000);
                         }, 1000);
                     }
-                }, 200);
+                }, 100); // Faster updates for smoother feel
             }
             
             // Initialisation de tous les éléments de la page de chargement
@@ -3787,12 +3809,12 @@
                 const highFpsParticlesContainer = document.getElementById('high-fps-particles');
                 
                 // Augmenter le nombre de particules pour un effet plus dense
-                for (let i = 0; i < 100; i++) {
+                for (let i = 0; i < 150; i++) { // Increased particle count
                     const particle = document.createElement('div');
                     particle.classList.add('high-fps-particle');
                     
                     // Taille aléatoire mais plus petite pour plus de fluidité
-                    const size = Math.random() * 3 + 1;
+                    const size = Math.random() * 2 + 1; // Smaller particles
                     particle.style.width = `${size}px`;
                     particle.style.height = `${size}px`;
                     
@@ -3803,15 +3825,15 @@
                     particle.style.top = `${posY}%`;
                     
                     // Destination aléatoire
-                    const destinationX = (Math.random() - 0.5) * 100;
-                    const destinationY = (Math.random() - 0.5) * 100;
+                    const destinationX = (Math.random() - 0.5) * 120; // Slightly larger drift
+                    const destinationY = (Math.random() - 0.5) * 120;
                     
                     particle.style.setProperty('--tx', `${destinationX}px`);
                     particle.style.setProperty('--ty', `${destinationY}px`);
                     
                     // Animation plus rapide pour un FPS élevé
-                    const duration = Math.random() * 2 + 1;
-                    particle.style.animation = `high-fps-particle-animation ${duration}s infinite`;
+                    const duration = Math.random() * 1.5 + 0.5; // Faster duration
+                    particle.style.animation = `high-fps-particle-animation ${duration}s infinite linear`; // Linear for constant speed
                     particle.style.animationDelay = `${Math.random() * 2}s`;
                     
                     highFpsParticlesContainer.appendChild(particle);
@@ -3889,18 +3911,21 @@
                 { id: 3, name: "Création Compte TikTok Monétisable", price: 2500, description: "Lancez votre carrière de créateur avec un compte TikTok éligible à la monétisation.", benefits: ["Éligible au fonds créateur", "Audience internationale", "Prêt à l'emploi"], testimonial: "J'ai enfin pu monétiser mes vidéos, merci Mr RHAFF ! - Fatou B.", color: "pink", icon: `<i class="fab fa-tiktok product-icon"></i>` },
                 { id: 4, name: "Déploiement Bot WhatsApp", price: 1500, options: [{label: "Déploiement (1500F/Mois)", price: 1500}, {label: "Formation Complète", price: 8000}], description: "Automatisez vos conversations WhatsApp. Service mensuel ou formation complète.", benefits: ["Réponses automatiques", "Gestion de clients", "Gain de temps"], testimonial: "Mon service client est devenu 10x plus efficace. - Ibrahim S.", color: "teal", icon: `<i class="fab fa-whatsapp product-icon"></i>` },
                 { id: 5, name: "Numéro Étranger WhatsApp", price: 4000, description: "Un numéro virtuel illimité pour travailler en toute discrétion.", benefits: ["Anonymat garanti", "Crédibilité pro", "Activation rapide"], testimonial: "Parfait pour mes affaires internationales. Discret et pro. - David L.", color: "purple", icon: `<i class="fas fa-phone-alt product-icon"></i>` },
-                { id: 6, name: "Apprendre le Piratage", price: 3500, description: "Formation éducative sur la sécurité des comptes FB, TikTok, Twitter, etc.", benefits: ["Éducatif", "Comprendre les failles", "Se protéger"], testimonial: "J'ai beaucoup appris sur comment sécuriser mes propres comptes. - Amina G.", color: "yellow", icon: `<i class="fas fa-user-secret product-icon"></i>` },
+                { id: 6, name: "Apprendre le Piratage", price: 3000, description: "Formation éducative sur la sécurité des comptes FB, TikTok, Twitter, etc.", benefits: ["Éducatif", "Comprendre les failles", "Se protéger"], testimonial: "J'ai beaucoup appris sur comment sécuriser mes propres comptes. - Amina G.", color: "yellow", icon: `<i class="fas fa-user-secret product-icon"></i>` },
                 { id: 7, name: "Netflix Premium Illimité", price: 2000, description: "Accès illimité à Netflix Premium sur mobile (iOS/Android).", benefits: ["Qualité 4K", "Tous les catalogues", "Économique"], testimonial: "Plus besoin de partager un compte, j'ai le mien pour pas cher ! - Marie C.", color: "red", icon: `<i class="fas fa-tv product-icon"></i>` },
                 { id: 8, name: "ChatGPT Pro & CapCut Pro", price: 3000, description: "Libérez votre créativité avec les versions pro des meilleurs outils IA.", benefits: ["Fonctionnalités avancées", "Sans limitations", "Productivité maximale"], testimonial: "Mes créations et mon travail ont atteint un autre niveau. - Jean P.", color: "indigo", icon: `<i class="fas fa-robot product-icon"></i>` },
-                { id: 9, name: "Abonnement IPTV", price: 2500, description: "Des milliers de chaînes sur votre mobile, Smart TV, et autres appareils connectés.", benefits: ["+10 000 Chaînes", "Films & Séries VOD", "Multi-appareils"], testimonial: "La meilleure offre IPTV du marché. Qualité et stabilité au rendez-vous. - Paul M.", color: "orange", icon: `<i class="fas fa-broadcast-tower product-icon"></i>` },
+                { id: 9, name: "IPTV Illimité", price: 7000, description: "Des milliers de chaînes sur votre mobile, Smart TV, et autres appareils connectés.", benefits: ["+10 000 Chaînes", "Films & Séries VOD", "Multi-appareils"], testimonial: "La meilleure offre IPTV du marché. Qualité et stabilité au rendez-vous. - Paul M.", color: "orange", icon: `<i class="fas fa-broadcast-tower product-icon"></i>` },
                 { id: 10, name: "Abonnement Telegram Premium", price: 3500, description: "Profitez de tous les avantages de Telegram Premium à partir de 3500F.", benefits: ["Upload 4Go", "Vitesse max", "Badges & Stickers exclusifs"], testimonial: "Enfin le premium à un prix abordable. Le service est impeccable. - Samira T.", color: "sky", icon: `<i class="fab fa-telegram product-icon"></i>` },
-                { id: 11, name: "Bloqueur de Publicités Ultime", price: 1000, description: "Naviguez sans interruption sur sites et applications. Bloquez toutes les pubs.", benefits: ["Navigation plus rapide", "Moins de distractions", "Sécurité accrue"], testimonial: "Je ne savais pas à quel point les pubs me ralentissaient. C'est magique ! - Kevin A.", color: "amber", icon: `<i class="fas fa-ad product-icon"></i>` },
-                { id: 12, name: "Application V2ray/Vmess/Trojan", price: 4000, description: "Accès illimité à des comptes V2ray, Vless, Vmess et Trojan.", benefits: ["Connexion sécurisée", "Vitesse maximale", "Accès mondial"], testimonial: "Parfait pour mon travail à l'étranger. Stable et rapide. - Luc B.", color: "lime", icon: `<i class="fas fa-shield-alt product-icon"></i>` },
+                { id: 11, name: "Bloqueur de Publicités Ultime", price: 999, description: "Naviguez sans interruption sur sites et applications. Bloquez toutes les pubs.", benefits: ["Navigation plus rapide", "Moins de distractions", "Sécurité accrue"], testimonial: "Je ne savais pas à quel point les pubs me ralentissaient. C'est magique ! - Kevin A.", color: "amber", icon: `<i class="fas fa-ad product-icon"></i>` },
+                { id: 12, name: "Application V2ray/Vmess/Trojan", price: 3500, description: "Accès illimité à des comptes V2ray, Vless, Vmess et Trojan.", benefits: ["Connexion sécurisée", "Vitesse maximale", "Accès mondial"], testimonial: "Parfait pour mon travail à l'étranger. Stable et rapide. - Luc B.", color: "lime", icon: `<i class="fas fa-shield-alt product-icon"></i>` },
                 { id: 13, name: "Compte Revendeur VPN SlowDNS", price: 3500, options: [{label: "5 utilisateurs", price: 3500}, {label: "10 utilisateurs", price: 7000}], description: "Devenez revendeur et créez vos propres fichiers VPN SlowDNS.", benefits: ["Panel de gestion", "Création de tests", "Source de revenus"], testimonial: "Le panel est simple d'utilisation et très rentable. Super opportunité. - Hassan C.", color: "emerald", icon: `<i class="fas fa-network-wired product-icon"></i>` },
                 { id: 14, name: "Site de Téléchargement Séries/Films", price: 1500, description: "Accès au meilleur site pour télécharger des séries et films animés en streaming VF/VOSTFR.", benefits: ["Catalogue immense", "Qualité HD", "Mises à jour régulières"], testimonial: "Tous mes films préférés en un seul lieu. C'est fantastique ! - Sophie L.", color: "violet", icon: `<i class="fas fa-film product-icon"></i>` },
                 { id: 15, name: "Carte VISA Virtuelle", price: 3000, description: "Obtenez une carte VISA virtuelle pour vos achats et paiements en ligne.", benefits: ["Sécurisée", "Acceptée partout", "Activation instantanée"], testimonial: "Indispensable pour mes abonnements et achats sur les sites étrangers. - Fanta K.", color: "fuchsia", icon: `<i class="fas fa-credit-card product-icon"></i>` },
-                { id: 16, name: "Création Boutique en Ligne", price: 2500, description: "Apprenez à créer votre propre boutique en ligne professionnelle.", benefits: ["Formation complète", "Sans code", "Vendez immédiatement"], testimonial: "J'ai lancé ma boutique en moins d'une semaine. Incroyable ! - Thomas R.", color: "rose", icon: `<i class="fas fa-store product-icon"></i>` },
-                { id: 17, name: "Version Pro d'Application", price: 1000, description: "Obtenez la version pro illimitée d'une application de votre choix.", benefits: ["Fonctionnalités débloquées", "Sans publicités", "Mises à jour à vie"], testimonial: "J'ai enfin accès à toutes les fonctionnalités pro. Excellent rapport qualité/prix ! - Nadia S.", color: "cyan", icon: `<i class="fas fa-mobile-alt product-icon"></i>` }
+                { id: 16, name: "Création Boutique en Ligne (avec Formation)", price: 8000, description: "Formation complète pour créer votre boutique en ligne professionnelle et vendre vos produits.", benefits: ["Devenez autonome", "E-commerce clés en main", "Stratégies de vente"], testimonial: "J'ai lancé ma boutique en moins d'une semaine et j'ai déjà mes premières ventes. Génial ! - Marie L.", color: "rose", icon: `<i class="fas fa-store product-icon"></i>`, isNew: true },
+                { id: 17, name: "Formation Programmation (HTML, CSS, JS)", price: 15000, description: "Apprenez les bases du développement web pour créer des sites interactifs et dynamiques.", benefits: ["Compétences essentielles", "Projets pratiques", "Débouchés professionnels"], testimonial: "Cette formation m'a donné les bases solides pour devenir développeur web. Super pédagogie ! - David M.", color: "cyan", icon: `<i class="fas fa-code product-icon"></i>`, isNew: true },
+                { id: 18, name: "Formation Trading", price: 10000, description: "Maîtrisez les stratégies de trading pour investir et générer des revenus sur les marchés financiers.", benefits: ["Analyse de marché", "Gestion des risques", "Conseils d'experts"], testimonial: "J'ai enfin compris comment fonctionne le trading, c'est une mine d'or si on s'y prend bien. - Sophia B.", color: "emerald", icon: `<i class="fas fa-chart-line product-icon"></i>`, isNew: true },
+                { id: 19, name: "Création d'Applications Mobiles", price: 6000, description: "Développez vos propres applications mobiles pour iOS et Android, sans code complexe.", benefits: ["Idées concrétisées", "Large audience", "Monétisation facile"], testimonial: "Mon application est un succès ! Facile à créer grâce à Mr RHAFF. - Alex P.", color: "indigo", icon: `<i class="fas fa-mobile-alt product-icon"></i>`, isNew: true },
+                { id: 20, name: "Formation Création de Bot Telegram", price: 10000, description: "Apprenez à concevoir et déployer des bots Telegram pour automatiser vos tâches et interagir avec votre audience.", benefits: ["Productivité accrue", "Automatisation", "Interaction avancée"], testimonial: "Mon bot gère les messages de ma communauté Telegram, c'est un gain de temps incroyable. - Kevin Z.", color: "sky", icon: `<i class="fab fa-telegram-plane product-icon"></i>`, isNew: true }
             ];
             
             // Generate testimonials data
@@ -3913,18 +3938,24 @@
                 { name: "Amina G.", product: "Apprendre le Piratage", text: "J'ai beaucoup appris sur comment sécuriser mes propres comptes.", rating: 4 },
                 { name: "Marie C.", product: "Netflix Premium Illimité", text: "Plus besoin de partager un compte, j'ai le mien pour pas cher ! - Marie C.", rating: 5 },
                 { name: "Jean P.", product: "ChatGPT Pro & CapCut Pro", text: "Mes créations et mon travail ont atteint un autre niveau.", rating: 5 },
-                { name: "Paul M.", product: "IPTV Illimité", text: "La meilleure offre IPTV du marché. Qualité et stabilité au rendez-vous.", rating: 5 },
+                { name: "Paul M.", product: "IPTV Illimité", text: "La meilleure offre IPTV du marché. Qualité et stabilité au rendez-vous. - Paul M.", rating: 5 },
                 { name: "Samira T.", product: "Abonnement Telegram Premium", text: "Enfin le premium à un prix abordable. Le service est impeccable.", rating: 4 },
                 { name: "Kevin A.", product: "Bloqueur de Publicités Ultime", text: "Je ne savais pas à quel point les pubs me ralentissaient. C'est magique ! - Kevin A.", rating: 5 },
                 { name: "Luc B.", product: "Application V2ray/Vmess/Trojan", text: "Parfait pour mon travail à l'étranger. Stable et rapide.", rating: 5 },
-                { name: "Hassan C.", product: "Compte Revendeur VPN SlowDNS", text: "Le panel est simple d'utilisation et très rentable. Super opportunité.", rating: 4 },
-                { name: "Sophie L.", product: "Site de Téléchargement Séries/Films", text: "Tous mes films préférés en un seul lieu. C'est fantastique !", rating: 5 },
-                { name: "Fanta K.", product: "Carte VISA Virtuelle", text: "Indispensable pour mes abonnements et achats sur les sites étrangers.", rating: 5 },
+                { name: "Hassan C.", product: "Compte Revendeur VPN SlowDNS", text: "Le panel est simple d'utilisation et très rentable. Super opportunité. - Hassan C.", rating: 4 },
+                { name: "Sophie L.", product: "Site de Téléchargement Séries/Films", text: "Tous mes films préférés en un seul lieu. C'est fantastique ! - Sophie L.", rating: 5 },
+                { name: "Fanta K.", product: "Carte VISA Virtuelle", text: "Indispensable pour mes abonnements et achats sur les sites étrangers. - Fanta K.", rating: 5 },
                 { name: "Thomas R.", product: "Création Boutique en Ligne", text: "J'ai lancé ma boutique en moins d'une semaine. Incroyable !", rating: 5 },
                 { name: "Nadia S.", product: "Version Pro d'Application", text: "J'ai enfin accès à toutes les fonctionnalités pro. Excellent rapport qualité/prix !", rating: 4 },
                 { name: "Karim B.", product: "Connexion Illimitée", text: "Je voyage souvent en Afrique de l'Ouest et ce service m'a sauvé la vie !", rating: 5 },
                 { name: "Yasmine T.", product: "Netflix Premium Illimité", text: "Toute la famille peut regarder ce qu'elle veut en même temps. Parfait !", rating: 5 },
-                { name: "Mamadou S.", product: "Déploiement Bot WhatsApp", text: "Le bot a réduit mon temps de réponse de 80%. Mes clients sont ravis !", rating: 5 }
+                { name: "Mamadou S.", product: "Déploiement Bot WhatsApp", text: "Le bot a réduit mon temps de réponse de 80%. Mes clients sont ravis !", rating: 5 },
+                // Testimonials for new products
+                { name: "Marie L.", product: "Création Boutique en Ligne (avec Formation)", text: "J'ai lancé ma boutique en moins d'une semaine et j'ai déjà mes premières ventes. Génial !", rating: 5 },
+                { name: "David M.", product: "Formation Programmation (HTML, CSS, JS)", text: "Cette formation m'a donné les bases solides pour devenir développeur web. Super pédagogie !", rating: 5 },
+                { name: "Sophia B.", product: "Formation Trading", text: "J'ai enfin compris comment fonctionne le trading, c'est une mine d'or si on s'y prend bien.", rating: 4 },
+                { name: "Alex P.", product: "Création d'Applications Mobiles", text: "Mon application est un succès ! Facile à créer grâce à Mr RHAFF.", rating: 5 },
+                { name: "Kevin Z.", product: "Formation Création de Bot Telegram", text: "Mon bot gère les messages de ma communauté Telegram, c'est un gain de temps incroyable.", rating: 5 }
             ];
             
             // Generate more testimonials to reach 75
@@ -4457,8 +4488,13 @@
             
             products.forEach(product => {
                 const card = document.createElement('div');
-                card.className = `product-card scroll-reveal glassmorphism rounded-xl p-6 flex flex-col cursor-pointer border ${colorClasses[product.color] || 'border-slate-700/50 hover:border-slate-500'} enhanced-shine`;
+                card.className = `product-card scroll-reveal glassmorphism rounded-xl p-6 flex flex-col cursor-pointer border ${colorClasses[product.color] || 'border-slate-700/50 hover:border-slate-500'} enhanced-shine relative`; // Add 'relative' for new badge positioning
                 card.dataset.productId = product.id;
+
+                let newBadgeHTML = '';
+                if (product.isNew) {
+                    newBadgeHTML = `<span class="new-badge">NOUVEAU <i class="fas fa-magic text-sm ml-1"></i></span>`;
+                }
                 
                 let priceHTML;
                 const priceValue = product.price || (product.options && product.options[0].price);
@@ -4473,6 +4509,7 @@
                                  </div>`;
                 }
                 card.innerHTML = `
+                    ${newBadgeHTML} <!-- Insert new badge here -->
                     <div class="flex items-start justify-between mb-4">
                         <h3 class="text-xl font-bold text-white pr-4">${product.name}</h3>
                         <div class="product-icon-enhanced ${colorClasses[product.color]} text-2xl">${product.icon}</div>
@@ -4972,7 +5009,12 @@
                 "Un compte PayPal Pro peut augmenter la confiance de vos clients internationaux de 50% !",
                 "Pensez à combiner le Bot WhatsApp et un Numéro Étranger pour un service client anonyme et automatisé.",
                 "Avec ChatGPT Pro, vous pouvez générer du contenu de qualité pour vos réseaux en un temps record.",
-                "Devenez votre propre patron en revendant nos connexions VPN. Une source de revenu stable !"
+                "Devenez votre propre patron en revendant nos connexions VPN. Une source de revenu stable !",
+                "Notre formation en programmation vous ouvre les portes du développement web et de la création de sites professionnels.",
+                "Apprenez à trader comme un pro avec nos experts et transformez votre compréhension des marchés financiers.",
+                "Créez des applications mobiles captivantes pour iOS et Android, même sans expérience en codage, grâce à nos méthodes simples.",
+                "Maîtrisez la création de boutiques en ligne et lancez votre business e-commerce avec succès.",
+                "Automatisez votre présence sur Telegram avec nos formations avancées sur la création de bots intelligents."
             ];
             
             function showPresenterWidget() {
@@ -5012,6 +5054,4 @@
         });
     </script>
 </body>
-
-</html>
-
+    </html>
